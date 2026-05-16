@@ -6,6 +6,8 @@ import pingRouter from "./router/ping.route.js";
 const app:Express = express();
 const port = serverConfig.port;
 
+app.use(express.json());
+
 app.use('/ping', pingRouter);
 
 
