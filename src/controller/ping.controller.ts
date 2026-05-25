@@ -1,8 +1,10 @@
 import { type Request, type Response, type NextFunction } from "express";
 import fs from "fs/promises";
 import { InternalServerError } from "../utils/error/app.error.js";
+import logger from "../config/logger.config.js";
+
 export async function pingController(req: Request, res: Response,next:NextFunction) {
-    console.log("called ping controller");
+    logger.info("called ping controller");
 //    fs.readFile("hello", "utf-8", (err, data) => {
 //     if (err) {
 //        throw new Error("File not found");
@@ -40,18 +42,19 @@ export async function pingController(req: Request, res: Response,next:NextFuncti
     //     };
     //     next(errorToThrow);
     // }
-         try {
-        const data = await fs.readFile("hello", "utf-8");
-        res.send(data);
-    } catch (err) {
-       throw new InternalServerError("File not found","vbv");
-    }
+    //      try {
+    //     const data = await fs.readFile("hello", "utf-8");
+    //     res.send(data);
+    // } catch (err) {
+    //    throw new InternalServerError("File not found","vbv");
+    // }
 
-
+    return res.send("pong");
 };
 
 export function healthController(req: Request, res: Response) {
     console.log(req.ip)
     res.send("ok");
     console.log("Response sent");
+    logger.info("Pinged health endpoint");
 }
